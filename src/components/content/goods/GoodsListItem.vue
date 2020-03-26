@@ -1,7 +1,6 @@
-<!-- 首页商品列表 -->
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img"  alt="">
+    <img @load="imgLoad" v-lazy="showImage" :key="showImage" alt="">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -22,9 +21,9 @@
       }
     },
     computed: {
-    	// showImage() {
-    	// 	return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
-      // }
+    	showImage() {
+    		return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
+      }
     },
     methods: {
       itemClick() {
@@ -49,7 +48,6 @@
   .goods-item img {
     width: 100%;
     border-radius: 5px;
-    height:100%;
   }
 
   .goods-info {

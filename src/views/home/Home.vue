@@ -20,35 +20,35 @@
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar.vue';
-import HomeSwiper from './childComps/HomeSwiper'
-import RecommendView from './childComps/RecommendView'
-import FeatureView from './childComps/FeatureView'
-import TabControl from 'components/content/tabControl/TabControl'
-import GoodsList from '../../components/content/goods/GoodsList'
-import Scroll from 'components/common/scroll/Scroll'
+  import NavBar from 'components/common/navbar/NavBar'
+  import HomeSwiper from './childComps/HomeSwiper'
+  import RecommendView from './childComps/RecommendView'
+  import FeatureView from './childComps/FeatureView'
+  import TabControl from 'components/content/tabControl/TabControl'
+  import GoodsList from '../../components/content/goods/GoodsList'
+  import Scroll from 'components/common/scroll/Scroll'
 
-import {getMultiData, getProductData} from "network/home";
-import {TOP_DISTANCE, POP, NEW, SELL} from "common/const";
-import {backTopMixin} from "common/mixin";
+  import {getMultiData, getProductData} from "network/home";
+  import {TOP_DISTANCE, POP, NEW, SELL} from "common/const";
+  import {backTopMixin} from "common/mixin";
 
-export default {
-  name: 'Home',
-  components: {
-    NavBar,
-    HomeSwiper,
-    RecommendView,
-    FeatureView,
-    TabControl,
-    GoodsList,
-    Scroll
-  },
-  mixins: [backTopMixin],
-  data(){
-    return {
-      banners: [],
-      recommends: [],
-      goods: {
+  export default {
+    name: "Home",
+    components: {
+      NavBar,
+      HomeSwiper,
+      RecommendView,
+      FeatureView,
+      TabControl,
+      GoodsList,
+      Scroll
+    },
+    mixins: [backTopMixin],
+    data() {
+      return {
+        banners: [],
+        recommends: [],
+        goods: {
           'pop': {page: 1, list: []},
           'new': {page: 1, list: []},
           'sell': {page: 1, list: []},
@@ -57,15 +57,15 @@ export default {
         showTabControl: false,
         tabOffsetTop: 0,
         saveY: 0
-    }   
-  },
-   computed: {
+      }
+    },
+    computed: {
       showGoodsList() {
         return this.goods[this.currentType].list
       }
     },
-  created(){
-    // 1.请求轮播等数据
+    created() {
+      // 1.请求轮播等数据
       this._getMultiData()
 
       // 2.请求商品数据
@@ -84,17 +84,18 @@ export default {
     },
     deactivated() {
 	    this.saveY = this.$refs.scroll.scrollY
-
-  },
-  methods:{
-    // 网络请求
-    _getMultiData() {
+    },
+    methods: {
+      /**
+       * 网络请求
+       */
+      _getMultiData() {
         getMultiData().then(res => {
           this.banners = res.data.banner.list
           this.recommends = res.data.recommend.list
         })
       },
-       _getProductData(type) {
+      _getProductData(type) {
         // 获取页码
         const page = this.goods[type].page
         getProductData(type, page).then(res => {
@@ -106,7 +107,9 @@ export default {
           this.$refs.scroll.finishedPullUp()
         })
       },
-      // 事件监听
+      /**
+       * 事件监听
+       */
       tabClick(index) {
         switch (index) {
           case 0:
@@ -133,8 +136,8 @@ export default {
 	    swiperLoaded() {
 		    this.tabOffsetTop = this.$refs.contentTab.$el.offsetTop;
 	    }
+    }
   }
-}
 </script>
 
 <style scoped>
@@ -149,10 +152,12 @@ export default {
     position: relative;
     z-index: 9;
   }
+
   .tab-control {
     position: relative;
     z-index: 9;
   }
+
   .content {
     position: absolute;
     top: 44px;

@@ -1,4 +1,3 @@
-<!--  -->
 <template>
   <div class="tab-bar">
     <slot></slot>
@@ -6,14 +5,13 @@
 </template>
 
 <script>
-
-export default {
-  name:'TabBar'
-}
-
+  export default {
+    name: "TabBar"
+  }
 </script>
+
 <style scoped>
-.tab-bar {
+  .tab-bar {
     background-color: #f6f6f6;
     height: 49px;
     border-top: 1px solid #eee;

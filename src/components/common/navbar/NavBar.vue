@@ -1,4 +1,3 @@
-<!--  -->
 <template>
   <div class="nav-bar ignore">
     <div class="left"><slot name="left"></slot></div>
@@ -8,18 +7,18 @@
 </template>
 
 <script>
-export default {
-  name:"NavBar"
-}
-
+  export default {
+    name: "NavBar"
+  }
 </script>
+
 <style scoped>
-.nav-bar {
+  .nav-bar {
     display: flex;
     height: 44px;
     line-height: 44px;
     text-align: center;
-  } 
+  }
 
   .left {
     width: 60px;

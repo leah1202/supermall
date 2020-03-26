@@ -1,28 +1,28 @@
-<!--  -->
 <template>
   <div class="recommend">
-    <div class="recommend-item" v-for="(item,index) in recommends" :key="index">
+    <div class="recommend-item" v-for="item in recommends">
       <a :href="item.link">
         <img :src="item.image" alt="">
         <span>{{item.title}}</span>
-      </a>     
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name:"RecommendView",
-  props:{
-    recommends:{
-      type:Array,
-      required:true
+  export default {
+    name: "RecommendView",
+    props: {
+      recommends: {
+        type: Array,
+        required: true
+      }
     }
-  } 
-}
+  }
 </script>
+
 <style scoped>
- .recommend {
+  .recommend {
     display: flex;
     margin-top: 10px;
     font-size: 14px;
