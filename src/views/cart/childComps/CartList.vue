@@ -1,3 +1,4 @@
+<!-- 购物车商品列表-->
 <template>
   <scroll class="cart-list" :data="[cartList]">
     <cart-list-item v-for="item in cartList" :key="item.iid" :item-info="item"></cart-list-item>

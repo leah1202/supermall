@@ -1,3 +1,4 @@
+<!-- 首页-->
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>

@@ -1,3 +1,4 @@
+<!-- 详情页轮播图-->
 <template>
   <swiper>
     <swiper-item v-for="(item, index) in images"

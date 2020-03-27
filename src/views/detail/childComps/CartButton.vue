@@ -1,3 +1,4 @@
+<!-- 右下角购物车图标-->
 <template>
   <div class="cart-btn">
     <img src="~assets/img/detail/cart.png" alt="">

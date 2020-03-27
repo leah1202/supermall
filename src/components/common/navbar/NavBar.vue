@@ -1,3 +1,4 @@
+<!-- 顶部菜单-->
 <template>
   <div class="nav-bar ignore">
     <div class="left"><slot name="left"></slot></div>

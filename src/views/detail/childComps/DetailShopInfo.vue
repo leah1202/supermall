@@ -1,3 +1,4 @@
+<!-- 店铺信息-->
 <template>
   <div class="shop-info">
     <div class="shop-top">

@@ -1,3 +1,4 @@
+<!-- 分类左边菜单栏-->
 <template>
   <scroll id="tab-menu">
     <div class="menu-list">

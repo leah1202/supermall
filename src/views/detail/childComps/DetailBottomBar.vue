@@ -1,3 +1,4 @@
+<!-- 详情底部导航栏-->
 <template>
   <div class="bottom-bar">
     <div class="bar-item bar-left">

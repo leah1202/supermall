@@ -1,3 +1,4 @@
+<!-- 用户信息-->
 <template>
   <div class="user-info">
     <img class="avatar" src="~assets/img/profile/avatar.svg" alt="">

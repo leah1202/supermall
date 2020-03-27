@@ -1,3 +1,4 @@
+<!-- batter-scroll 滚动-->
 <template>
   <div ref="wrapper" class="wrapper">
     <div>

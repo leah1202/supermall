@@ -1,3 +1,4 @@
+<!-- 加入购物车弹窗-->
 <template>
   <transition name="fade">
     <div class="toast" v-show="isShow">{{message}}</div>

@@ -1,3 +1,4 @@
+<!-- 详情页顶部导航栏-->
 <template>
   <div>
     <nav-bar>

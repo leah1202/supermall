@@ -1,3 +1,4 @@
+<!-- 首页轮播图-->
 <template>
   <swiper ref="swiper" v-if="banners.length">
     <swiper-item v-for="(item, index) in banners">

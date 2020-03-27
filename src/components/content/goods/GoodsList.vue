@@ -1,8 +1,9 @@
+<!-- 商品信息-->
 <template>
   <div class="goods-list">
     <goods-list-item
-            v-for="item in goods"
-            :goods-item="item" class="item">
+            v-for="(item,index) in goods"
+            :goods-item="item" class="item" :key="index">
     </goods-list-item>
   </div>
 </template>

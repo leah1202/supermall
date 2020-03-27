@@ -1,3 +1,4 @@
+<!-- 首页商品详情-->
 <template>
   <div id="detail">
     <detail-nav-bar @titleClick="selectIndex" :current-index="currentIndex"/>

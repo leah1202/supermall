@@ -1,3 +1,4 @@
+<!-- 分类商品排列-->
 <template>
   <div>
     <grid-view :cols="3" :lineSpace="15" :v-margin="20" v-if="subcategories.list">

@@ -1,3 +1,4 @@
+<!-- 购物车底部导航-->
 <template>
   <div class="bottom-menu">
     <CheckButton class="select-all" @checkBtnClick="checkBtnClick" v-model="isSelectAll"></CheckButton>

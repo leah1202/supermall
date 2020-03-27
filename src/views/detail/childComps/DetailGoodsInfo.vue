@@ -1,3 +1,4 @@
+<!-- 商品详情图-->
 <template>
   <div v-if="Object.keys(detailInfo).length !== 0" class="goods-info">
     <div class="info-desc clear-fix">

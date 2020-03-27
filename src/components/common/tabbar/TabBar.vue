@@ -1,3 +1,4 @@
+<!-- 底部导航-->
 <template>
   <div class="tab-bar">
     <slot></slot>

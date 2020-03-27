@@ -1,3 +1,4 @@
+<!-- 我的-->
 <template>
   <div id="profile">
     <nav-bar class="nav-bar"><div slot="center">我的档案</div></nav-bar>

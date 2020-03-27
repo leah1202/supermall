@@ -1,3 +1,4 @@
+<!-- 购物车选择按钮-->
 <template>
     <div>
       <div class="icon-selector" :class="{'selector-active': checked}" @click="selectItem">

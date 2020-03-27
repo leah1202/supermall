@@ -1,3 +1,4 @@
+<!-- 购物车-->
 <template>
   <div>
     <nav-bar class="nav-bar"><div slot="center">购物车({{cartLength}})</div></nav-bar>

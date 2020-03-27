@@ -1,3 +1,4 @@
+<!-- 首页商品推荐-->
 <template>
   <div class="recommend">
     <div class="recommend-item" v-for="item in recommends">

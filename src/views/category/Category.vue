@@ -1,3 +1,4 @@
+<!-- 分类页面-->
 <template>
   <div id="category">
     <nav-bar class="nav-bar"><div slot="center">商品分类</div></nav-bar>
@@ -77,7 +78,7 @@
 		    getCategory().then(res => {
 		      // 1.获取分类数据
 		      this.categories = res.data.category.list
-			    console.log(res);
+			    // console.log(res);
 			    // 2.初始化每个类别的子数据
           for (let i = 0; i < this.categories.length; i++) {
             this.categoryData[i] = {

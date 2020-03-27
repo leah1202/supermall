@@ -1,3 +1,4 @@
+<!-- 商品基础信息，如价格，标题等-->
 <template>
   <div v-if="Object.keys(goods).length !== 0" class="base-info">
     <div class="info-title">{{goods.title}}</div>

@@ -1,3 +1,4 @@
+<!-- 详情页商品基础数据-->
 <template>
   <div class="param-info" v-if="Object.keys(paramInfo).length !== 0">
     <table v-for="(table, index) in paramInfo.sizes"
@@ -7,7 +8,7 @@
       </tr>
     </table>
     <table class="info-param">
-      <tr v-for="(info, index) in paramInfo.infos">
+      <tr v-for="(info, index) in paramInfo.infos" :key="index">
         <td class="info-param-key">{{info.key}}</td>
         <td class="param-value">{{info.value}}</td>
       </tr>
