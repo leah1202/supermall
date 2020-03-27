@@ -1,15 +1,19 @@
 <template>
-  <nav-bar>
-    <img slot="left" class="back" @click="backClick" src="~assets/img/common/back.svg" alt="">
+  <div>
+    <nav-bar>
+      <div slot="left" class="back" @click="backClick">
+        <img src="~assets/img/common/back.svg" alt="">
+      </div>
     <div slot="center" class="title">
       <div class="title-item"
            v-for="(item, index) in titles"
            @click="titleClick(index)"
-           :class="{active: currentIndex === index}">
+           :class="{active: currentIndex === index}" :key="index">
         {{item}}
       </div>
     </div>
   </nav-bar>
+  </div> 
 </template>
 
 <script>

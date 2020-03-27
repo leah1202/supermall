@@ -48,6 +48,7 @@
   .goods-item img {
     width: 100%;
     border-radius: 5px;
+    height:100%
   }
 
   .goods-info {

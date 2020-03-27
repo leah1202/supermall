@@ -15,7 +15,7 @@
       <goods-list ref="recommend" :goods="goodsList"/>
     </scroll>
     <back-top v-show="showBackTop" @click.native="backTop"/>
-    <!--<cart-button @click.native="cartClick"/>-->
+    <cart-button @click.native="cartClick"/>
     <detail-bottom-bar @addToCart="addToCart"/>
     <toast ref="toast"/>
   </div>
