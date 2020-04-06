@@ -1,19 +1,216 @@
-# supermall3
+# supermall
 
-## Project setup
+该项目是一个用vue.js搭建的移动端商城项目，采用组件化开发的思想，将功能模块进行相应的封装。    
+页面主要有首页，详情页，分类页面，购物车页面和我的。
+
+### 一. tabbar swiper FeatureView 组件封装
+
+### 二. TabControl
+
+* 独立组件的封装
+  * props -> titles
+  * div>根据titles v-for遍历 div -> span{{title}}
+  * css相关
+  * 选中哪一个tab, 哪一个tab的文字颜色变色, 下面border-bottom
+    * currentIndex
+
+### 三. 首页商品数据的请求
+
+#### 3.1. 设计数据结构, 用于保存数据
 ```
-npm install
+goods: {
+pop: page/list
+new: page/list
+sell: page/list
+}
+```
+#### 3.2. 发送数据请求
+
+* 在home.js中封装getHomeGoods(type, page)
+* 在Home.vue中, 又在methods中getHomeGoods(type)
+* 调用getHomeGoods('pop')/getHomeGoods('new')/getHomeGoods('sell')
+  * page: 动态的获取对应的page
+* 获取到数据: res
+  * this.goods[type].list.push(...res.data.list)
+  * this.goods[type].page += 1
+```
+goods: {
+pop: page1:/list[30]
+new: page1/list[30]
+sell: page1/list[30]
+}
+```
+### 四. 对商品数据进行展示
+
+#### 4.1. 封装GoodsList.vue组件
+
+* props: goods -> list[30]
+* v-for goods -> GoodsListItem[30]
+* GoodListItem(组件) -> GoodsItem(数据)
+
+#### 4.2. 封装GoodsListItem.vue组件
+
+* props: goodsItem 
+* goodsItem 取出数据, 并且使用正确的div/span/img基本标签进行展示
+
+### 五. 对滚动进行重构: Better-Scroll
+
+#### 5.1. 在index.html中使用Better-Scroll
+
+* const bscroll = new BScroll(el, {   })
+* 注意: wrapper -> content -> 很多内容
+* 1.监听滚动
+  * probeType: 0/1/2(手指滚动)/3(只要是滚动)
+  * bscroll .on('scroll', (position) => {})
+* 2.上拉加载
+  * pullUpLoad: true
+  * bscroll .on('pullingUp', () => {})
+* 3.click: false
+  * button可以监听点击
+  * div不可以
+
+#### 5.2. 在Vue项目中使用Better-Scroll
+
+* 在Profile.vue中简单的演示
+* 对Better-Scroll进行封装: Scroll.vue
+* Home.vue和Scroll.vue之间进行通信
+  * Home.vue将probeType设置为3
+  * Scroll.vue需要通过$emit, 实时将事件发送到Home.vue
+
+### 六. 回到顶部BackTop
+
+#### 6.1. 对BackTop.vue组件的封装
+#### 6.2. 如何监听组件的点击
+
+* 直接监听back-top的点击, 但是可以直接监听?
+  * 不可以, 必须添加修饰.native
+* 回到顶部
+  * scroll对象, scroll.scrollTo(x, y, time)
+  * this.$refs.scroll.scrollTo(0, 0, 500)
+
+#### 6.3. BackTop组件的显示和隐藏 
+
+* isShowBackTop: false
+* 监听滚动, 拿到滚动的位置:
+  * -position.y > 1000  -> isShowBackTop: true
+  * isShowBackTop = -position.y > 1000
+
+### 七. 解决首页中可滚动区域的问题
+
+* Better-Scroll在决定有多少区域可以滚动时, 是根据scrollerHeight属性决定
+  * scrollerHeight属性是根据放Better-Scroll的content中的子组件的高度
+  * 刚开始在计算scrollerHeight属性时, 是没有将图片计算在内的
+  * 所以, 计算出来的告诉是错误的(1300+)
+  * 后来图片加载进来之后有了新的高度, 但是scrollerHeight属性并没有进行更新.
+  * 所以滚动出现了问题
+* 如何解决这个问题了?
+  * 监听每一张图片是否加载完成, 只要有一张图片加载完成了, 执行一次refresh()
+  * 如何监听图片加载完成了?
+    * 原生的js监听图片: img.onload = function() {}
+    * Vue中监听: @load='方法'
+  * 调用scroll的refresh()
+* 如何将GoodsListItem.vue中的事件传入到Home.vue中
+  * 因为涉及到非父子组件的通信, 所以这里选择了**事件总线**
+    * bus ->总线
+    * Vue.prototype.$bus = new Vue()
+    * this.bus.emit('事件名称', 参数)
+    * this.bus.on('事件名称', 回调函数(参数))
+
+* 问题一: refresh找不到的问题
+  * 第一: 在Scroll.vue中, 调用this.scroll的方法之前, 判断this.scroll对象是否有值
+  * 第二: 在mounted生命周期函数中使用 this.$refs.scroll而不是created中
+* 问题二: 对于refresh非常频繁的问题, 进行防抖操作
+  * 防抖函数起作用的过程:
+    * 如果我们直接执行refresh, 那么refresh函数会被执行30次.
+    * 可以将refresh函数传入到debounce函数中, 生成一个新的函数.
+    * 之后在调用非常频繁的时候, 就使用新生成的函数.
+    * 而新生成的函数, 并不会非常频繁的调用, 如果下一次执行来的非常快, 那么会将上一次取消掉
+
+```js
+      debounce(func, delay) {
+        let timer = null
+        return function (...args) {
+          if (timer) clearTimeout(timer)
+          timer = setTimeout(() => {
+            func.apply(this, args)
+          }, delay)
+        }
+      },
 ```
 
-### Compiles and hot-reloads for development
+### 八. tabControl的吸顶效果
+
+#### 8.1. 获取到tabControl的offsetTop
+
+* 需要获取tabControl的offsetTop
+* 监听HomeSwiper中img的加载完成.
+* 加载完成后, 发出事件, 在Home.vue中, 获取正确的值.
+  * 为了不让HomeSwiper多次发出事件,
+  * 可以使用isLoad的变量进行状态的记录.
+
+#### 8.2. 监听滚动, 动态的改变tabControl的样式
+
+* 问题:动态的改变tabControl的样式时, 会出现两个问题:
+  * 问题一: 下面的商品内容, 会突然上移
+  * 问题二: tabControl虽然设置了fixed, 但是也随着Better-Scroll一起滚出去了.
+* 其他方案来解决停留问题.
+  * 在最上面, 多复制了一份PlaceHolderTabControl组件对象, 利用它来实现停留效果.
+  * 当用户滚动到一定位置时, PlaceHolderTabControl显示出来.
+  * 当用户滚动没有达到一定位置时, PlaceHolderTabControl隐藏起来.
+
+### 九. 让Home保持原来的状态
+
+#### 9.1. 让Home不要随意销毁掉
+
+* keep-alive
+
+#### 9.2. 让Home中的内容保持原来的位置
+
+* 离开时, 保存一个位置信息saveY.
+* 进来时, 将位置设置为原来保存的位置saveY信息即可.
+  * 注意: 最好回来时, 进行一次refresh()
+  
+### 十. toast插件封装
+
+* 加入购物车弹窗封装
 ```
-npm run serve
+plugin.install = (Vue) => {
+	const ToastConstructor = Vue.extend(Toast)
+
+	// 注意:这里不能用箭头函数
+	ToastConstructor.prototype.close = function() {
+		this.isShow = false
+		this.$el.addEventListener('transitionend', removeDom)
+	}
+
+	Vue.prototype.$toast = (options={}) => {
+		// 1.将创建出来的组件,挂载到某个div中
+		const toast = new ToastConstructor()
+		toast.$mount(document.createElement('div'))
+
+		// 2.将toast的$el添加到body中
+		document.body.appendChild(toast.$el)
+
+		// 3.获取用户自定义数据
+		const duration = options.duration || 2500
+		toast.message = options.message
+		toast.isShow = true
+
+		// 4.定时器让toast消失
+		setTimeout(() => {
+			toast.close()
+		}, duration)
+	}
+}
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 十一. 移动端300ms延迟  
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* fanstclick
+
+### 十二.  图片懒加载
+
+* lazy-load
+
+
+
