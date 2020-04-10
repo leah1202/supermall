@@ -71,7 +71,6 @@ sell: page1/list[30]
 
 #### 5.2. 在Vue项目中使用Better-Scroll
 
-* 在Profile.vue中简单的演示
 * 对Better-Scroll进行封装: Scroll.vue
 * Home.vue和Scroll.vue之间进行通信
   * Home.vue将probeType设置为3
